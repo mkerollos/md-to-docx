@@ -9,7 +9,48 @@ license = "MIT"
 python = "^3.10"
 
 [tool.poetry.dev-dependencies]
+black = "^22.3.0"
+flake8 = "^4.0.1"
+pytest = "^7.1.1"
+pre-commit = "^2.18.1"
+mypy = "^0.942"
+isort = "^5.10.1"
+pytest-cov = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+latest-tag = true
+pattern = "(?x)(?P<base>\\d+(\\.\\d+)*)(-?((?P<stage>[a-zA-Z]+)\\.?(?P<revision>\\d+)?))?(\\+(?P<tagged_metadata>.+))?$"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+include = '\.py'
+skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 120
+include_trailing_comma = true
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+addopts = "--cov=md-to-docx tests/ --cov-report=term"
+
+[tool.mypy]
+python_version = 3.10
+files = "md-to-docx,tests"
+
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+
+no_implicit_optional = true
+strict_optional = true
