@@ -1,0 +1,41 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.1.0
+  hooks:
+    - id: end-of-file-fixer     
+    - id: trailing-whitespace
+    - id: check-added-large-files
+    - id: check-yaml
+- repo: local
+  hooks:
+    - id: Black
+      name: Black
+      entry: poetry run black
+      pass_filenames: true
+      language: system
+      args: [--config=pyproject.toml]
+- repo: local
+  hooks:
+    - id: Flake8
+      name: Flake8
+      entry: poetry run flake8
+      pass_filenames: true
+      language: system
+- repo: local
+  hooks:
+    - id: MyPy
+      name: MyPy
+      entry: poetry run mypy
+      pass_filenames: true
+      language: system
+      args: [--config=pyproject.toml]
+- repo: local
+  hooks:
+    - id: isort
+      name: isort
+      entry: poetry run isort
+      pass_filenames: true
+      language: system
+default_language_version:
+    python: python3.10
+files: (md-to-docx|tests|scripts).(py|sh)
